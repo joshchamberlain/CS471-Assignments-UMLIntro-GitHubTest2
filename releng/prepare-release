@@ -41,13 +41,13 @@ VERSION=$($GET_VERSION_SCRIPT)
 TAG="v$VERSION"
 echo "Version $VERSION -> Tag $TAG"
 
-git add .
-read -p "Press enter to commit changes" RESPONSE
+git add pom.xml
+read -p "Press enter to create a git commit." RESPONSE
 git commit
 
-read -p "Press enter to create and push a tag for this release" RESPONSE
-echo "Creating tag with \`git tag $TAG\`"
+read -p "Press enter to create a tag ($TAG) and start the release" RESPONSE
 git tag $TAG
+git push --follow-tags
 
 
 
