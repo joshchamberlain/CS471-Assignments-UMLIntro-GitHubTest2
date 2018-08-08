@@ -30,3 +30,7 @@ deploy:
   on:
     tags: true
     repo: joshchamberlain/CS471-Assignments-UMLIntro-GitHubTest2
+cache:
+  directories:
+    - $HOME/.m2    
+    - $HOME/.sonar/cache
