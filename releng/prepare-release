@@ -47,7 +47,7 @@ git commit
 
 read -p "Press enter to create a tag ($TAG) and start the release" RESPONSE
 git tag $TAG
-git push --follow-tags
+git push origin --follow-tags
 
 
 
