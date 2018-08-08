@@ -3,12 +3,24 @@ jdk:
 - openjdk8
 notifications:
   email: false
-script:
-- mvn clean compile
-- mvn test || echo "There were failed tests"
 
-before_deploy:
-- mvn package
+env:
+  global:
+      - CC_TEST_REPORTER_ID=5362b49f61c8d7fc3e953d9fd9685eabc3d60b06598dd4d16761ac0b88518b08
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build 
+
+script:
+    - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test org.jacoco:jacoco-maven-plugin:report package
+
+after_script:
+  - cp ./target/site/jacoco/jacoco.xml ./src/main/java
+  - mv ./cc-test-reporter ./src/main/java
+  - cd src/main/java
+  - ./cc-test-reporter after-build
 
 deploy:
   provider: releases
@@ -20,3 +32,4 @@ deploy:
   on:
     tags: true
     repo: joshchamberlain/CS471-Assignments-UMLIntro-GitHubTest2
+        
