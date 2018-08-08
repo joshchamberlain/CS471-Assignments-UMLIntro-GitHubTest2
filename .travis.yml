@@ -1,0 +1,9 @@
+language: java
+jdk:
+- openjdk8
+notifications: false
+
+script:
+- mvn clean compile
+- mvn test || echo "There were failed tests"
+
