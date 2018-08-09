@@ -78,7 +78,7 @@ function init_vars() {
 # Post data to GitHub
 # $1 The URL relative to https://api.github.com/
 # $2 The data to post
-# Echo's the HTTP response code to stdout
+# Sets the variable HTTP_CODE from the response
 function github_post() {
     echo "JCT ::: TRACE IN FUNCTION"
     if [ "$#" -ne 2 ]; then
@@ -95,13 +95,13 @@ function github_post() {
      echo "JCT :::        --output /dev/null \\"
      echo "JCT :::        --write-out \"%{http_code}\""
 
-    curl -i https://api.github.com${1} -H "Authorization: token $GITHUB_TOKEN" \
+    HTTP_CODE=$(curl -i https://api.github.com${1} -H "Authorization: token $GITHUB_TOKEN" \
         --header "Content-Type: application/json" \
         --request POST \
         --data "$2" \
         --silent \
         --output /dev/null \
-        --write-out "%{http_code}"
+        --write-out "%{http_code}")
 }
 
 # This assumes $@ includes the command name and will shift past it.
@@ -119,8 +119,8 @@ function cmd_status() {
     echo "JCT ::: ARG1 - /repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA"
     echo "JCT ::: JSON:"
     echo "$JSON"
-    CODE=$(github_post "/repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA" "$JSON")
-    if [[ ! "$CODE" =~ 2[0-9][0-9] ]]; then
+    github_post "/repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA" "$JSON"
+    if [[ ! "$HTTP_CODE" =~ 2[0-9][0-9] ]]; then
         echo "Failed to post status to GitHub. Response code was $CODE" >&2
         exit 1
     fi
