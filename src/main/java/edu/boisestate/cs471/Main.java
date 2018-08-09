@@ -11,7 +11,7 @@ public final class Main {
     private Main() {
         // Do not allow instantiation.
     }
-
+	// There is a tab on this line...
     /**
      * Main program entry point.
      * @param args Command line arguments.
