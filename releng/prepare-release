@@ -44,10 +44,9 @@ echo "Version $VERSION -> Tag $TAG"
 git add pom.xml
 read -p "Press enter to create a git commit." RESPONSE
 git commit
+git push
 
 read -p "Press enter to create a tag ($TAG) and start the release" RESPONSE
 git tag $TAG
-git push origin --follow-tags
-
-
+git push origin $TAG
 
