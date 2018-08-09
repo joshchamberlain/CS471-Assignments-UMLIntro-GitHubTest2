@@ -54,7 +54,7 @@ Gotchas:
  the report to Code Climate.
 
 ## Sonar Cloud
-Like Code Climate, this also analyzes the build.
+Like Code Climate, this also analyzes the build. Sonar provides more useful trend graphs than Code Climate.
  * Requires GUI: Yes
  * Requires CLI Tool: No
  * Requires Config File: No
@@ -67,13 +67,54 @@ Gotcahs:
     ```
    2. Add the token to the global environmental variables in the `.travis.yml` file
    3. Use the token by adding `-Dsonar.login=${SONAR_TOKEN}` when having Travis run the sonar:sonar maven goal. 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+# Abandoned Ideas
+Some technologies were investigated but decided against. Here are some notes for future reference.
+
+## GitLab
+GitLab has some nice features, but you do not have complete control. This means you rely heavily on GitLab for 
+integrations to work. GitHub already has tons of integrations that 'just work', and their configuration is fairly
+transparent.
+
+## Coverity
+It may provide some nice features, but it requires uploading archives to it. Given the high quality and relative
+simplicity of Sonar and Code Climate, it was not worth pursuing Coverity.
+
+## AppVeyor
+AppVeyor can display a JUnit test report. However, it can be complicated to set up.
+
+I suggest using AppVeyor if:
+ * You prefer Windows over Linux
+ * You are using .NET
+
+## Storing Build Artifacts
+I was trying to store build artifacts (test results, test coverage, checkstyle, etc.) so that I could create some trend
+graphs. However, it turns out that Sonar Cloud provides sufficient trend graphs, so there is no need to store build
+artifacts. I had checked into the following approaches and was having some difficulty:
+ * Heroku
+ * GitLab
+ * Coverity
+ * Appveyor
+
+## Jenkins
+Jenkins is a great tool, but it takes a considerable amount of effort to configure. There are free hosted options, but
+the only one I could get to work was really slow. I finally got it to start building only for the build to fail because
+it didn't have maven installed. I did not have permissions to install maven onto it.
+
+I suggest using Jenkins if:
+ * You have a server
+ * You are using a Java project with Maven
+ * You have a team of <20 people
+ * You trust your team not to break Jenkins
+ * You have experience with Jenkins
+
+
+
+
+
+
+
+
+
+
+
