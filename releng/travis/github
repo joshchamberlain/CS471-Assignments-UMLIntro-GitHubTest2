@@ -95,13 +95,18 @@ function github_post() {
      echo "JCT :::        --output /dev/null \\"
      echo "JCT :::        --write-out \"%{http_code}\""
 
-    HTTP_CODE=$(curl -i https://api.github.com${1} -H "Authorization: token $GITHUB_TOKEN" \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data "$2" \
-        --silent \
-        --output /dev/null \
-        --write-out "%{http_code}")
+    if ! HTTP_CODE=$(curl -i https://api.github.com${1} -H "Authorization: token $GITHUB_TOKEN" \
+            --header "Content-Type: application/json" \
+            --request POST \
+            --data "$2" \
+            --silent \
+            --output /dev/null \
+            --write-out "%{http_code}"); then
+        echo "CURL operation failed" >&2
+        echo " -> URL: https://api.github.com${1}"
+        echo " -> Data: $2"
+        exit 2
+    fi
 }
 
 # This assumes $@ includes the command name and will shift past it.
@@ -116,6 +121,8 @@ function cmd_status() {
     fi
     JSON=$(echo "{'state': '$1', 'description': '$2', 'context': '$3'}" | sed "s/'/\"/g")
     echo "JCT ::: TRACE"
+    echo "JCT ::: GH_OWNDER = >$GH_OWNER<"
+    echo "JCT ::: GH_REPO = >$GH_REPO<"
     echo "JCT ::: ARG1 - /repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA"
     echo "JCT ::: JSON:"
     echo "$JSON"
