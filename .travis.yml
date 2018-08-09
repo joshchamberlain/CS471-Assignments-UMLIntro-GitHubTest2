@@ -15,9 +15,10 @@ jobs:
           - mvn clean compile
     - stage: tests
       script:
-          - ./releng/travis/pre-test
-          - ./releng/travis/test
-          - ./releng/travis/post-test
+          - ls -la ./releng/travis
+          - bash ./releng/travis/pre-test
+          - bash ./releng/travis/test
+          - bash ./releng/travis/post-test
     - stage: validate_pull_request
       name: "Checkstyle"
       script: 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then mvn checkstyle:check; fi'
