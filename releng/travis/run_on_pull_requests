@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "Running pull request validations"
-set -v
 set -e
 set -o pipefail
 
