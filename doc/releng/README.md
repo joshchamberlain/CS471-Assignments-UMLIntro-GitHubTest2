@@ -1,4 +1,4 @@
-# Status
+# Status of master branch
 
 [![Build Status](https://travis-ci.org/joshchamberlain/CS471-Assignments-UMLIntro-GitHubTest2.svg?branch=master)](https://travis-ci.org/joshchamberlain/CS471-Assignments-UMLIntro-GitHubTest2)
 
@@ -68,6 +68,9 @@ Gotcahs:
    2. Add the token to the global environmental variables in the `.travis.yml` file
    3. Use the token by adding `-Dsonar.login=${SONAR_TOKEN}` when having Travis run the sonar:sonar maven goal. 
 
+## Commit Hooks
+There is a commit hook that prevents adding tabs to Java files.
+
 # Abandoned Ideas
 Some technologies were investigated but decided against. Here are some notes for future reference.
 
@@ -102,19 +105,9 @@ the only one I could get to work was really slow. I finally got it to start buil
 it didn't have maven installed. I did not have permissions to install maven onto it.
 
 I suggest using Jenkins if:
- * You have a server
+ * You have root access to a server
  * You are using a Java project with Maven
  * You have a team of <20 people
  * You trust your team not to break Jenkins
  * You have experience with Jenkins
-
-
-
-
-
-
-
-
-
-
 

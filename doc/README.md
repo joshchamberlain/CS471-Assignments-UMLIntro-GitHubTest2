@@ -1,5 +1,3 @@
-*Badges are out of date*
-
 # DevOps
 For information about the build system, see the release engineering documentation in [/doc/releng/README.md](./releng/README.md)
 
