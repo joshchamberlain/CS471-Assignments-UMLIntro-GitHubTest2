@@ -82,7 +82,18 @@ function init_vars() {
 function github_post() {
     if [ "$#" -ne 2 ]; then
         echo "Internal error - script called a function with the wrong number of arguments ($#)"
+        exit 2
     fi
+    echo "JCT ::: GH TOKEN lenghth:"
+    echo "$GITHUB_TOKEN" | wc -c
+     echo "JCT :::    curl -i https://api.github.com${1} -H \"Authorization: token <REDACTED>" \\"
+     echo "JCT :::        --header \"Content-Type: application/json\" \\"
+     echo "JCT :::        --request POST \\"
+     echo "JCT :::        --data \"$2\" \\"
+     echo "JCT :::        --silent \\"
+     echo "JCT :::        --output /dev/null \\"
+     echo "JCT :::        --write-out \"%{http_code}\""
+
     curl -i https://api.github.com${1} -H "Authorization: token $GITHUB_TOKEN" \
         --header "Content-Type: application/json" \
         --request POST \
