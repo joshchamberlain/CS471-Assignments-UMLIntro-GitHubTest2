@@ -64,13 +64,16 @@ fi
 # GH_REPO - The repository name
 # GH_SHA - The sha of this commit
 function init_vars() {
+    echo "JCT ::: TRACE :::: Remote URL: $(git remote get-url origin)"
     # Get the URL on GitHub, and parse it
     # Step 1: git remote get-url origin -> git@github.com:owner/repo.git
     # Step 2: sed 's/.*://g' -> owner/repo.git
     # Step 3: sed 's/\.git//g' -> owner/repo
     # Step 4: sed 's/\//\t/g' -> owner	repo
     # Step 4: read those two tokens into the variables GH_OWNER and GH_REPO
-    read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/.*://g' | sed 's/\.git//g' | sed 's/\//\t/g')
+    #read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/.*://g' | sed 's/\.git//g' | sed 's/\//\t/g')
+
+    read IGNORE GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/[:\/]/\t/g' | sed 's/\.git//g')
     # Git just gives us the saw if we ask nicely
     GH_SHA=$(git rev-parse HEAD)
 }
