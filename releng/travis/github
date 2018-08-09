@@ -5,7 +5,6 @@ SCRIPT_NAME=$(basename $0)
 
 set -e
 set -o pipefail
-set -v
 
 OPTIONS="hv"
 POSITIONAL_ARG_COUNT=1
@@ -52,8 +51,6 @@ if [ $# -lt $POSITIONAL_ARG_COUNT ]; then
     exit 1
 fi
 
-COMMAND="$1"
-
 if [ -z "$GITHUB_TOKEN" ]; then
     echo "The environmental variable GITHUB_TOKEN must be set" >&2
     exit 1
@@ -66,17 +63,20 @@ fi
 function init_vars() {
     echo "JCT ::: TRACE :::: Remote URL: $(git remote get-url origin)"
     # Get the URL on GitHub, and parse it
-    # Step 1: git remote get-url origin -> git@github.com:owner/repo.git
-    # Step 2: sed 's/.*://g' -> owner/repo.git
+    # Step 1: git remote get-url origin -> git@github.com:owner/repo.git or https://github.com/owner/repo.git
+    #---- Step 2: sed 's/.*://g' -> owner/repo.git
+    # Step 2: sed 's/^.*\.com[:\/]//g' -> owner/repo.git
     # Step 3: sed 's/\.git//g' -> owner/repo
     # Step 4: sed 's/\//\t/g' -> owner	repo
     # Step 4: read those two tokens into the variables GH_OWNER and GH_REPO
     #read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/.*://g' | sed 's/\.git//g' | sed 's/\//\t/g')
 
-    read IGNORE GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/[:\/]/\t/g' | sed 's/\.git//g')
+    read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/^.*\.com[:\/]//g' | sed 's/\//\t/g' | sed 's/\.git//g')
     # Git just gives us the saw if we ask nicely
     GH_SHA=$(git rev-parse HEAD)
 }
+
+
 
 # Post data to GitHub
 # $1 The URL relative to https://api.github.com/
@@ -131,12 +131,10 @@ function cmd_status() {
     echo "$JSON"
     github_post "/repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA" "$JSON"
     if [[ ! "$HTTP_CODE" =~ 2[0-9][0-9] ]]; then
-        echo "Failed to post status to GitHub. Response code was $CODE" >&2
+        echo "Failed to post status to GitHub. Response code was $HTTP_CODE" >&2
         exit 1
     fi
 }
-
-
 
 
 init_vars
