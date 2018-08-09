@@ -80,6 +80,7 @@ function init_vars() {
 # $2 The data to post
 # Echo's the HTTP response code to stdout
 function github_post() {
+    echo "JCT ::: TRACE IN FUNCTION"
     if [ "$#" -ne 2 ]; then
         echo "Internal error - script called a function with the wrong number of arguments ($#)"
         exit 2
@@ -114,6 +115,10 @@ function cmd_status() {
         exit 1
     fi
     JSON=$(echo "{'state': '$1', 'description': '$2', 'context': '$3'}" | sed "s/'/\"/g")
+    echo "JCT ::: TRACE"
+    echo "JCT ::: ARG1 - /repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA"
+    echo "JCT ::: JSON:"
+    echo "$JSON"
     CODE=$(github_post "/repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA" "$JSON")
     if [[ ! "$CODE" =~ 2[0-9][0-9] ]]; then
         echo "Failed to post status to GitHub. Response code was $CODE" >&2
