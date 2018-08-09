@@ -72,16 +72,21 @@ function init_vars() {
     #read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/.*://g' | sed 's/\.git//g' | sed 's/\//\t/g')
 
     read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/^.*\.com[:\/]//g' | sed 's/\//\t/g' | sed 's/\.git//g')
-    # Git just gives us the saw if we ask nicely
+    # Do not use get rev-parse HEAD to get the sha of the commit because Travis is actually using a hidden merge commit
+    GH_SHA=$(git rev-list HEAD --no-merges --max-count 1)
+#    # JCT This doesn't work on Travis like it does locally
+ #   if [ -n "$TRAVIS_PULL_REQUEST_BRANCH" ]; then
+  #      # This is a special pull request branch. That means we should reference the commit just prior to this one
 
-    # JCT This doesn't work on Travis like it does locally
-    echo "This works locally, but what does Travis say?"
-    git rev-parse HEAD
-    echo "What about this version?"
-    git rev-parse --verify HEAD^{commit}
+
+
+   # echo "This works locally, but what does Travis say?"
+   # git rev-parse HEAD
+    #echo "What about this version?"
+#    git rev-parse --verify HEAD^{commit}
 
 #    GH_SHA=$(git rev-parse HEAD)
-    GH_SHA=$(git rev-parse --verify HEAD^{commit})
+ #   GH_SHA=$(git rev-parse --verify HEAD^{commit})
 }
 
 

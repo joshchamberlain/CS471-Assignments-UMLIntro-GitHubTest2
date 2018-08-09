@@ -51,3 +51,4 @@ else
     ghstatus "$NAME_COVERAGE" "success" "Test coverage requirements met"
 fi
 
+echo "Custom pull request checks complete"
