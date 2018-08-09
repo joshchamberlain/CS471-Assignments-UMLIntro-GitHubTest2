@@ -73,7 +73,16 @@ There is a commit hook that prevents adding tabs to Java files.
 
 # Creating Releases
 The travis configuration will create a release for any tagged build. The suggested release process is to use the
-script `<project>/releng/prepare-release`.
+script `<project>/releng/release`. This does the following:
+ * Updates the version number in `pom.xml`
+ * Creates a git commit with those changes, prompting for a commit message
+ * Promt to confirm, then create a tag and push the tag
+ * Once the tag is pushed, travis will run a special deploy section that will send the packaged jar file to GitHub
+
+Example Usage:
+```bash
+  $ ./releng/release minor
+```
 
 # Abandoned Ideas
 Some technologies were investigated but decided against. Here are some notes for future reference.
