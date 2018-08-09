@@ -73,7 +73,15 @@ function init_vars() {
 
     read GH_OWNER GH_REPO < <(git remote get-url origin | sed 's/^.*\.com[:\/]//g' | sed 's/\//\t/g' | sed 's/\.git//g')
     # Git just gives us the saw if we ask nicely
-    GH_SHA=$(git rev-parse HEAD)
+
+    # JCT This doesn't work on Travis like it does locally
+    echo "This works locally, but what does Travis say?"
+    git rev-parse HEAD
+    echo "What about this version?"
+    git rev-parse --verify HEAD^{commit}
+
+#    GH_SHA=$(git rev-parse HEAD)
+    GH_SHA=$(git rev-parse --verify HEAD^{commit})
 }
 
 
@@ -83,20 +91,10 @@ function init_vars() {
 # $2 The data to post
 # Sets the variable HTTP_CODE from the response
 function github_post() {
-    echo "JCT ::: TRACE IN FUNCTION"
     if [ "$#" -ne 2 ]; then
         echo "Internal error - script called a function with the wrong number of arguments ($#)"
         exit 2
     fi
-    echo "JCT ::: GH TOKEN lenghth:"
-    echo "$GITHUB_TOKEN" | wc -c
-     echo "JCT :::    curl -i https://api.github.com${1} -H \"Authorization: token <REDACTED>\" \\"
-     echo "JCT :::        --header \"Content-Type: application/json\" \\"
-     echo "JCT :::        --request POST \\"
-     echo "JCT :::        --data \"$2\" \\"
-     echo "JCT :::        --silent \\"
-     echo "JCT :::        --output /dev/null \\"
-     echo "JCT :::        --write-out \"%{http_code}\""
 
     if ! HTTP_CODE=$(curl -i https://api.github.com${1} -H "Authorization: token $GITHUB_TOKEN" \
             --header "Content-Type: application/json" \
@@ -123,7 +121,6 @@ function cmd_status() {
         exit 1
     fi
     JSON=$(echo "{'state': '$1', 'description': '$2', 'context': '$3'}" | sed "s/'/\"/g")
-    echo "JCT ::: TRACE"
     echo "JCT ::: GH_OWNDER = >$GH_OWNER<"
     echo "JCT ::: GH_REPO = >$GH_REPO<"
     echo "JCT ::: ARG1 - /repos/$GH_OWNER/$GH_REPO/statuses/$GH_SHA"
