@@ -86,7 +86,7 @@ function github_post() {
     fi
     echo "JCT ::: GH TOKEN lenghth:"
     echo "$GITHUB_TOKEN" | wc -c
-     echo "JCT :::    curl -i https://api.github.com${1} -H \"Authorization: token <REDACTED>" \\"
+     echo "JCT :::    curl -i https://api.github.com${1} -H \"Authorization: token <REDACTED>\" \\"
      echo "JCT :::        --header \"Content-Type: application/json\" \\"
      echo "JCT :::        --request POST \\"
      echo "JCT :::        --data \"$2\" \\"
