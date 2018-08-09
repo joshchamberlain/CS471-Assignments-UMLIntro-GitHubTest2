@@ -71,6 +71,10 @@ Gotcahs:
 ## Commit Hooks
 There is a commit hook that prevents adding tabs to Java files.
 
+# Creating Releases
+The travis configuration will create a release for any tagged build. The suggested release process is to use the
+script `<project>/releng/prepare-release`.
+
 # Abandoned Ideas
 Some technologies were investigated but decided against. Here are some notes for future reference.
 
