@@ -48,7 +48,7 @@ public class Controller implements ISelectionListener, ISortListener, IEventRece
     public final Model getModel() {
         return mModel;
     }
-    
+
     public final GuiListener getGuiListener() {
         if (null == mGuiListener) {
             mGuiListener = new GuiListener(this);
@@ -167,5 +167,9 @@ public class Controller implements ISelectionListener, ISortListener, IEventRece
                 mViewUpdateListener.showSampleSizeDialog();
                 break;
         }
+    }
+
+    public int testme() {
+        return 99;
     }
 }

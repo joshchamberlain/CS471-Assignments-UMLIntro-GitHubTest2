@@ -44,4 +44,9 @@ public class ControllerTest {
         Mockito.verify(mockModel).updateSampleSize(size);
     }
 
+
+    @Test
+    public final void testTestTest() {
+        assertEquals(99, ctrl.testme());
+    }
 }
