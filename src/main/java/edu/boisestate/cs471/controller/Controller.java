@@ -61,7 +61,7 @@ public class Controller implements ISelectionListener, ISortListener, IEventRece
      */
     public final void registerListener(final IViewUpdateListener listener) {
         mViewUpdateListener = listener;
-        listener.onSortDataRangeChanged(25);
+        listener.onSortDataRangeChanged(26);
         listener.onSortDataUpdated();
         listener.onDynamicTextChanged();
 
