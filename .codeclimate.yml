@@ -2,7 +2,7 @@ plugins:
     checkstyle:
         enabled: true
         config:
-            file: "tools/checkstyle.xml"
+            file: "cc-test.xml"
     fixme:
         enabled: true
     markdownlint:
