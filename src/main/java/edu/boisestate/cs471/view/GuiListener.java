@@ -11,10 +11,15 @@ import javax.swing.JComboBox;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.boisestate.cs471.util.EventType;
 import edu.boisestate.cs471.util.interfaces.IEventReceiver;
 
 public class GuiListener implements ActionListener, ItemListener, PopupMenuListener {
+    private static final Logger logger = LogManager.getLogger(GuiListener.class);
+
 
     private final IEventReceiver mReceiver;
     private final HashMap<Object, EventType> mEventTypes = new HashMap<>();
@@ -26,13 +31,13 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
         }
         mReceiver = receiver;
     }
-    
-    
+
+
     public void listenToComboBoxIndex(JComboBox<?> item, EventType eventType) {
         item.setActionCommand(eventType.toString());
         item.addPopupMenuListener(this);
     }
-    
+
     public void listenTo(AbstractButton item, EventType eventType, Object ...eventArgs) {
         if (eventArgs.length > 0) {
             mEventTypes.put(item, eventType);
@@ -46,7 +51,7 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        System.out.println(e);
+        logger.debug(e);
     }
 
     @Override
@@ -59,7 +64,7 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
             mReceiver.onEvent(eventType, args);
             return;
         }
-        
+
         // If no arguments exist for this event, convert the action command to an event type
         String command = e.getActionCommand();
         try {
@@ -67,8 +72,7 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
             mReceiver.onEvent(asEnum);
         }
         catch (IllegalArgumentException ex) {
-            System.out.println("Warning: Ignoring unexpected command value " + e.getActionCommand());
-            return;
+            logger.warn("Ignoring unexpected command value " + e.getActionCommand());
         }
     }
 
@@ -88,12 +92,11 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
                 mReceiver.onEvent(asEnum, box.getSelectedIndex());
             }
             catch (IllegalArgumentException ex) {
-                System.out.println("Warning: Ignoring unexpected command value " + box.getActionCommand());
-                return;
+                logger.warn("Ignoring unexpected command value " + box.getActionCommand());
             }
         }
         else {
-            System.err.println("Event popupMenuWillBecomeInvisible() must come from a JComboBox");
+            logger.error("Event popupMenuWillBecomeInvisible() must come from a JComboBox");
         }
     }
 

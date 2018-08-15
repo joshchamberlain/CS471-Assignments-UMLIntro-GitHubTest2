@@ -20,13 +20,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.boisestate.cs471.controller.Controller;
 import edu.boisestate.cs471.model.Model;
+import edu.boisestate.cs471.model.SortingAlgorithm;
 import edu.boisestate.cs471.util.ComboBoxModelWrapper;
 import edu.boisestate.cs471.util.EventType;
 import edu.boisestate.cs471.util.interfaces.IViewUpdateListener;
 
 public class View implements IViewUpdateListener {
+    private static final Logger logger = LogManager.getLogger(SortingAlgorithm.class);
 
     private JFrame mFrame;
     private final Controller mController;
@@ -104,10 +109,10 @@ public class View implements IViewUpdateListener {
         mBtnNext.setFocusable(false);
         navigationPanel.add(mBtnNext, BorderLayout.EAST);
 
-        mAlgorithmSelect = new JComboBox<String>();
+        mAlgorithmSelect = new JComboBox<>();
         mAlgorithmChoices = new ComboBoxModelWrapper<>(mController.getModel().getAllAlgorithmNames());
         mAlgorithmSelect.setModel(mAlgorithmChoices);
-        
+
         navigationPanel.add(mAlgorithmSelect, BorderLayout.CENTER);
 
         mVisualizer = new Visualizer();
@@ -191,12 +196,12 @@ public class View implements IViewUpdateListener {
         guiListener.listenTo(mBtnIterate, EventType.GUI_CLICK_ITERATE);
         guiListener.listenTo(mBtnPlay, EventType.GUI_CLICK_PLAY);
         guiListener.listenTo(mBtnPause, EventType.GUI_CLICK_PAUSE);
-        
+
         // Menu items
         guiListener.listenTo(mMenuItemSampleCount, EventType.GUI_DIALOG_SAMPLE_SIZE);
         guiListener.listenTo(mMenuItemEnglish, EventType.GUI_SET_LANGUAGE, "English");
         guiListener.listenTo(mMenuItemSpanish, EventType.GUI_SET_LANGUAGE, "Spanish");
-        
+
         // Combo Boxes
         guiListener.listenToComboBoxIndex(mAlgorithmSelect, EventType.GUI_SELECT_ALGORITHM_INDEX);
     }
@@ -235,9 +240,9 @@ public class View implements IViewUpdateListener {
     }
 
     private void setButtonStates() {
-        mBtnIterate.setEnabled(mController.getModel().isIterateEnabled());
+        mBtnIterate.setEnabled(mController.getModel().isPlayIterateEnabled());
         mBtnPause.setEnabled(mController.getModel().isPauseEnabled());
-        mBtnPlay.setEnabled(mController.getModel().isPlayEnabled());
+        mBtnPlay.setEnabled(mController.getModel().isPlayIterateEnabled());
         mFrame.repaint();
     }
 
@@ -276,7 +281,7 @@ public class View implements IViewUpdateListener {
             return new ImageIcon(imgURL);
         }
         else {
-            System.err.println("Couldn't find file: " + path);
+            logger.error("Couldn't find file: " + path);
             return null;
         }
     }
@@ -316,7 +321,6 @@ public class View implements IViewUpdateListener {
 
     @Override
     public void showSampleSizeDialog() {
-        // TODO Auto-generated method stub
         String userInput = null;
         switch (mController.getModel().getCurrentLanguage()) {
             case "Spanish":

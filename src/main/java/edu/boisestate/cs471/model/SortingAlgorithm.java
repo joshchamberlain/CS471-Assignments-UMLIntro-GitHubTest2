@@ -2,12 +2,14 @@ package edu.boisestate.cs471.model;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.Timer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import edu.boisestate.cs471.util.interfaces.ISortListener;
 
@@ -15,6 +17,8 @@ import edu.boisestate.cs471.util.interfaces.ISortListener;
  * A representation of a sorting algorithm, capable of actually sorting data.
  */
 public abstract class SortingAlgorithm {
+    private static final Logger logger = LogManager.getLogger(SortingAlgorithm.class);
+
     /** The default color to use when displaying the sorting data. */
     private static final Color COLOR_DEFAULT = Color.RED;
     protected static final Color COLOR_SORTED = Color.BLUE;
@@ -163,17 +167,14 @@ public abstract class SortingAlgorithm {
             if (null != mAnimation) {
                 return;
             }
-            mAnimation = new Timer(10, new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    iterateSort();
-                    if (isSorted()) {
-                        mStopTime = System.currentTimeMillis();
-                        System.out.println("Sorting complete, stopping animation");
-                        mAnimation.stop();
-                        mAnimation = null;
-                        signalButtonStateChanged();
-                    }
+            mAnimation = new Timer(10, (final ActionEvent e) -> {
+                iterateSort();
+                if (isSorted()) {
+                    mStopTime = System.currentTimeMillis();
+                    logger.info("Sorting complete, stopping animation");
+                    mAnimation.stop();
+                    mAnimation = null;
+                    signalButtonStateChanged();
                 }
             });
             if (mIterationCounter == 0) {
@@ -226,7 +227,7 @@ public abstract class SortingAlgorithm {
      */
     public final void iterateSort() {
         if (mIsSorted) {
-            System.out.println("already sorted");
+            logger.info("already sorted");
             return;
         }
         mIterationCounter++;

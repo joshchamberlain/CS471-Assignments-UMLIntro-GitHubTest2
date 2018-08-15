@@ -2,6 +2,9 @@ package edu.boisestate.cs471.controller;
 
 import java.awt.event.ActionListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.boisestate.cs471.model.Model;
 import edu.boisestate.cs471.model.SortingAlgorithm;
 import edu.boisestate.cs471.util.EventType;
@@ -25,6 +28,8 @@ import edu.boisestate.cs471.view.GuiListener;
  * sorting data that may need to be relayed on to the View.</p>
  */
 public class Controller implements ISelectionListener, ISortListener, IEventReceiver {
+    private static final Logger logger = LogManager.getLogger(Controller.class);
+
     /** The Model of this model-view-controller. */
     private final Model mModel;
     /** A listener registered by the View to know when to redraw. */
@@ -159,7 +164,7 @@ public class Controller implements ISelectionListener, ISortListener, IEventRece
                 break;
             case GUI_SET_LANGUAGE:
                 String language = (String) args[0];
-                System.out.println("Set language to " + language);
+                logger.debug("Set language to " + language);
                 mModel.updateLanguage(language);
                 mViewUpdateListener.onLocalizationChanged(language);
                 break;
@@ -167,9 +172,5 @@ public class Controller implements ISelectionListener, ISortListener, IEventRece
                 mViewUpdateListener.showSampleSizeDialog();
                 break;
         }
-    }
-
-    public int testme() {
-        return 99;
     }
 }
