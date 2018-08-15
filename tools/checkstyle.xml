@@ -64,31 +64,6 @@
     <module name="EmptyLineSeparator">
       <property name="allowNoEmptyLineBetweenFields" value="true"/>
     </module>
-    <module name="SeparatorWrap">
-      <property name="id" value="SeparatorWrapDot"/>
-      <property name="option" value="nl"/>
-      <property name="tokens" value="DOT"/>
-    </module>
-    <module name="SeparatorWrap">
-      <property name="id" value="SeparatorWrapComma"/>
-      <property name="option" value="nl"/>
-      <property name="tokens" value="COMMA"/>
-    </module>
-    <module name="SeparatorWrap">
-      <property name="id" value="SeparatorWrapEllipsis"/>
-      <property name="option" value="EOL"/>
-      <property name="tokens" value="ELLIPSIS"/>
-    </module>
-    <module name="SeparatorWrap">
-      <property name="id" value="SeparatorWrapArrayDeclarator"/>
-      <property name="option" value="EOL"/>
-      <property name="tokens" value="ARRAY_DECLARATOR"/>
-    </module>
-    <module name="SeparatorWrap">
-      <property name="id" value="SeparatorWrapMethodRef"/>
-      <property name="option" value="nl"/>
-      <property name="tokens" value="METHOD_REF"/>
-    </module>
     <module name="NoFinalizer"/>
     <module name="GenericWhitespace">
       <message key="ws.notPreceded" value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
@@ -114,7 +89,7 @@
     <module name="ParenPad"/>
     <module name="OperatorWrap">
       <property name="option" value="NL"/>
-      <property name="tokens" value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF "/>
+      <property name="tokens" value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF"/>
     </module>
     <module name="AnnotationLocation">
       <property name="id" value="AnnotationLocationMostCases"/>
