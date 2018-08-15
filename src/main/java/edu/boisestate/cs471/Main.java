@@ -2,11 +2,15 @@ package edu.boisestate.cs471;
 
 import java.awt.EventQueue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.boisestate.cs471.controller.Controller;
 import edu.boisestate.cs471.model.Model;
 import edu.boisestate.cs471.view.View;
 
 public final class Main {
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
     private Main() {
         // Do not allow instantiation.
@@ -28,7 +32,7 @@ public final class Main {
                 view.show();
             }
             catch (final Exception e) {
-                e.printStackTrace();
+                logger.catching(e);
             }
         });
     }

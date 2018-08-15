@@ -26,6 +26,22 @@ public class BubbleSort extends SortingAlgorithm {
         }
     }
 
+    private final void bubble(int firstIndex, int secondIndex) {
+        if (mData[firstIndex] > mData[secondIndex]) {
+            // swap elements
+            final int temp = mData[firstIndex];
+            mData[firstIndex] = mData[secondIndex];
+            mData[secondIndex] = temp;
+            mColors[firstIndex] = COLOR_SWAPPED;
+            mColors[secondIndex] = COLOR_SWAPPED;
+            mFoundChanges = true;
+        }
+        else {
+            mColors[firstIndex] = COLOR_COMARED;
+            mColors[secondIndex] = COLOR_COMARED;
+        }
+    }
+
     @Override
     public final boolean doSortIteration() {
         resetColors();
@@ -37,19 +53,7 @@ public class BubbleSort extends SortingAlgorithm {
 
         if (mOuterLoopIndex < mData.length) {
             if (mInnerLoopIndex < mData.length) {
-                if (mData[mInnerLoopIndex - 1] > mData[mInnerLoopIndex]) {
-                    // swap elements
-                    final int temp = mData[mInnerLoopIndex - 1];
-                    mData[mInnerLoopIndex - 1] = mData[mInnerLoopIndex];
-                    mData[mInnerLoopIndex] = temp;
-                    mFoundChanges = true;
-                    mColors[mInnerLoopIndex - 1] = COLOR_SWAPPED;
-                    mColors[mInnerLoopIndex] = COLOR_SWAPPED;
-                }
-                else {
-                    mColors[mInnerLoopIndex - 1] = COLOR_COMARED;
-                    mColors[mInnerLoopIndex] = COLOR_COMARED;
-                }
+                bubble(mInnerLoopIndex - 1, mInnerLoopIndex);
                 mInnerLoopIndex++;
             }
             else {

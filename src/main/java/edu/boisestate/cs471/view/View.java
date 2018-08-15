@@ -20,13 +20,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.boisestate.cs471.controller.Controller;
 import edu.boisestate.cs471.model.Model;
+import edu.boisestate.cs471.model.SortingAlgorithm;
 import edu.boisestate.cs471.util.ComboBoxModelWrapper;
 import edu.boisestate.cs471.util.EventType;
 import edu.boisestate.cs471.util.interfaces.IViewUpdateListener;
 
 public class View implements IViewUpdateListener {
+    private static final Logger logger = LogManager.getLogger(SortingAlgorithm.class);
 
     private JFrame mFrame;
     private final Controller mController;
@@ -276,7 +281,7 @@ public class View implements IViewUpdateListener {
             return new ImageIcon(imgURL);
         }
         else {
-            System.err.println("Couldn't find file: " + path);
+            logger.error("Couldn't find file: " + path);
             return null;
         }
     }

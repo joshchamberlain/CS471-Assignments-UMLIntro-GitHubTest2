@@ -14,7 +14,7 @@ public class Visualizer extends JPanel {
     private static final int BAR_GAP = 1;
     private int[] mData;
     private Color[] mColors;
-    private final Object mDataLock = new Object();
+    private final transient Object mDataLock = new Object();
 
     private double mBarWidth = 0;
     private int mVisualizerHeight = 0;

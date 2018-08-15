@@ -8,12 +8,17 @@ import java.util.List;
 
 import javax.swing.Timer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import edu.boisestate.cs471.util.interfaces.ISortListener;
 
 /**
  * A representation of a sorting algorithm, capable of actually sorting data.
  */
 public abstract class SortingAlgorithm {
+    private static final Logger logger = LogManager.getLogger(SortingAlgorithm.class);
+
     /** The default color to use when displaying the sorting data. */
     private static final Color COLOR_DEFAULT = Color.RED;
     protected static final Color COLOR_SORTED = Color.BLUE;
@@ -166,7 +171,7 @@ public abstract class SortingAlgorithm {
                 iterateSort();
                 if (isSorted()) {
                     mStopTime = System.currentTimeMillis();
-                    System.out.println("Sorting complete, stopping animation");
+                    logger.info("Sorting complete, stopping animation");
                     mAnimation.stop();
                     mAnimation = null;
                     signalButtonStateChanged();
@@ -222,7 +227,7 @@ public abstract class SortingAlgorithm {
      */
     public final void iterateSort() {
         if (mIsSorted) {
-            System.out.println("already sorted");
+            logger.info("already sorted");
             return;
         }
         mIterationCounter++;
