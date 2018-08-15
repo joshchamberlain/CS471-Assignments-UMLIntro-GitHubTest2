@@ -208,7 +208,7 @@ public abstract class SortingAlgorithm {
      * exclusively by the animation.
      *
      * @return The sort duration in milliseconds if the sort has completed, the running time if it is still animated, or
-     * 0 if the animation was not used.
+     *      0 if the animation was not used.
      */
     public final long getSortDurationMillis() {
         if (mStartTime <= 0) {
