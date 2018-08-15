@@ -1,6 +1,8 @@
 plugins:
     checkstyle:
         enabled: true
+        config:
+            file: "tools/checkstyle.xml"
     fixme:
         enabled: true
     markdownlint:
