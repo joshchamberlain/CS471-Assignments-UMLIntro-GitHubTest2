@@ -26,13 +26,13 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
         }
         mReceiver = receiver;
     }
-    
-    
+
+
     public void listenToComboBoxIndex(JComboBox<?> item, EventType eventType) {
         item.setActionCommand(eventType.toString());
         item.addPopupMenuListener(this);
     }
-    
+
     public void listenTo(AbstractButton item, EventType eventType, Object ...eventArgs) {
         if (eventArgs.length > 0) {
             mEventTypes.put(item, eventType);
@@ -59,7 +59,7 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
             mReceiver.onEvent(eventType, args);
             return;
         }
-        
+
         // If no arguments exist for this event, convert the action command to an event type
         String command = e.getActionCommand();
         try {
@@ -68,7 +68,6 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
         }
         catch (IllegalArgumentException ex) {
             System.out.println("Warning: Ignoring unexpected command value " + e.getActionCommand());
-            return;
         }
     }
 
@@ -89,7 +88,6 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
             }
             catch (IllegalArgumentException ex) {
                 System.out.println("Warning: Ignoring unexpected command value " + box.getActionCommand());
-                return;
             }
         }
         else {

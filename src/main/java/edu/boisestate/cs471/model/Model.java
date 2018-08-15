@@ -175,7 +175,7 @@ public final class Model {
      * @return An array of algorithm display names.
      */
     public String[] getAllAlgorithmNames() {
-        String namesArray[] = new String[mAlgorithms.size()];
+        String[] namesArray = new String[mAlgorithms.size()];
         for (int i = 0; i < mAlgorithms.size(); i++) {
             namesArray[i] = mAlgorithms.get(i).getName(mLanguage);
         }
@@ -221,10 +221,10 @@ public final class Model {
     }
 
     /**
-     * Check if the play button should be enabled.
-     * @return True if the play button should be enabled.
+     * Check if the play button and iterate button should be enabled.
+     * @return True if the play and iterate buttons should be enabled.
      */
-    public boolean isPlayEnabled() {
+    public boolean isPlayIterateEnabled() {
         SortingAlgorithm selected = getSelectedAlgorithm();
         return (!selected.isAnimating() && !selected.isSorted());
     }
@@ -236,14 +236,5 @@ public final class Model {
     public boolean isPauseEnabled() {
         SortingAlgorithm selected = getSelectedAlgorithm();
         return selected.isAnimating();
-    }
-
-    /**
-     * Check if the iterate button should be enabled.
-     * @return True if the iterate button should be enabled.
-     */
-    public boolean isIterateEnabled() {
-        SortingAlgorithm selected = getSelectedAlgorithm();
-        return (!selected.isAnimating() && !selected.isSorted());
     }
 }

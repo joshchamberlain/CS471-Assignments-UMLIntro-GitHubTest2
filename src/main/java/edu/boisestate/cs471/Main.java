@@ -11,9 +11,10 @@ public final class Main {
     private Main() {
         // Do not allow instantiation.
     }
-	// There is a tab on this line...
+
     /**
      * Main program entry point.
+     *
      * @param args Command line arguments.
      */
     public static void main(final String[] args) {
@@ -21,16 +22,13 @@ public final class Main {
         final Model model = new Model();
         final Controller controller = new Controller(model);
 
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final View view = new View(controller);
-                    view.show();
-                }
-                catch (final Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                final View view = new View(controller);
+                view.show();
+            }
+            catch (final Exception e) {
+                e.printStackTrace();
             }
         });
     }

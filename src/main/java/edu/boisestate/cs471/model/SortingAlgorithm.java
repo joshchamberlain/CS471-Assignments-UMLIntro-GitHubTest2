@@ -2,7 +2,6 @@ package edu.boisestate.cs471.model;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -163,17 +162,14 @@ public abstract class SortingAlgorithm {
             if (null != mAnimation) {
                 return;
             }
-            mAnimation = new Timer(10, new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    iterateSort();
-                    if (isSorted()) {
-                        mStopTime = System.currentTimeMillis();
-                        System.out.println("Sorting complete, stopping animation");
-                        mAnimation.stop();
-                        mAnimation = null;
-                        signalButtonStateChanged();
-                    }
+            mAnimation = new Timer(10, (final ActionEvent e) -> {
+                iterateSort();
+                if (isSorted()) {
+                    mStopTime = System.currentTimeMillis();
+                    System.out.println("Sorting complete, stopping animation");
+                    mAnimation.stop();
+                    mAnimation = null;
+                    signalButtonStateChanged();
                 }
             });
             if (mIterationCounter == 0) {

@@ -168,8 +168,4 @@ public class Controller implements ISelectionListener, ISortListener, IEventRece
                 break;
         }
     }
-
-    public int testme() {
-        return 99;
-    }
 }
