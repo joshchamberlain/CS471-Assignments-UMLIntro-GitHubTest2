@@ -45,7 +45,7 @@ public final class Model {
      * calling this method will replace the previous listener.
      *
      * @param listener A listener to be notified when a different algorithm becomes selected. The listener is
-     * immediately notified of a change from null to the currently selected algorithm.
+     *      immediately notified of a change from null to the currently selected algorithm.
      */
     public void setSelectionListener(final ISelectionListener listener) {
         mSelectionListener = listener;

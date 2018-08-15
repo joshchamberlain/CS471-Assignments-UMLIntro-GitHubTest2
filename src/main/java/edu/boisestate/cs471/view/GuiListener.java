@@ -38,7 +38,7 @@ public class GuiListener implements ActionListener, ItemListener, PopupMenuListe
         item.addPopupMenuListener(this);
     }
 
-    public void listenTo(AbstractButton item, EventType eventType, Object ...eventArgs) {
+    public void listenTo(AbstractButton item, EventType eventType, Object...eventArgs) {
         if (eventArgs.length > 0) {
             mEventTypes.put(item, eventType);
             mEventArgs.put(item, eventArgs);

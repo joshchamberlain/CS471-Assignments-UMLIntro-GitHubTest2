@@ -12,7 +12,7 @@ public class SortingAlgorithmResultsTest {
 
     }
 
-//    @Test
+    //    @Test
     public final void testFoo() {
         fail("Not yet implemented"); // TODO
     }
@@ -20,10 +20,10 @@ public class SortingAlgorithmResultsTest {
     @Test
     public final void testBubbleSort() {
         System.out.println("Start of test");
-        int n = 10;
-        BubbleSort sort = new BubbleSort(10);
+        final int n = 10;
+        BubbleSort sort = new BubbleSort(n);
         sort.randomize();
-        for (int i = 0; i < (n*n); i++) {
+        for (int i = 0; i < (n * n); i++) {
             boolean isSorted = sort.doSortIteration();
             if (isSorted) {
                 return;

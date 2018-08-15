@@ -4,5 +4,5 @@ import edu.boisestate.cs471.util.EventType;
 
 public interface IEventReceiver {
 
-    void onEvent(EventType type, Object ...args);
+    void onEvent(EventType type, Object...args);
 }

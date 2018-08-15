@@ -9,6 +9,9 @@ import org.mockito.Mockito;
 import edu.boisestate.cs471.model.Model;
 import edu.boisestate.cs471.util.interfaces.IViewUpdateListener;
 
+/**
+ * Test the {@link Controller}.
+ */
 public class ControllerTest {
 
     private Model mockModel;
@@ -39,7 +42,7 @@ public class ControllerTest {
 
     @Test
     public final void testUpdateSampelSize() {
-        int size = 42;
+        final int size = 42;
         ctrl.updateSampleSize(size);
         Mockito.verify(mockModel).updateSampleSize(size);
     }

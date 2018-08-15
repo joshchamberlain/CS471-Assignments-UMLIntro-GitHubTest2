@@ -78,7 +78,8 @@
     <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance"/>
     <module name="CustomImportOrder">
-      <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
+      <property name="customImportOrderRules" value="STATIC###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE"/>
+      <property name="thirdPartyPackageRegExp" value="^(org|com)\..*$"/>
       <property name="sortImportsInGroupAlphabetically" value="true"/>
     </module>
     <module name="MethodParamPad"/>
@@ -124,11 +125,14 @@
     </module>
     <module name="CommentsIndentation"/>
     <module name="MagicNumber">
-      <property name="constantWaiverParentToken" value="TYPECAST,POST_INC,POST_DEC,METHOD_CALL,EXPR,ARRAY_INIT,UNARY_MINUS,UNARY_PLUS,ELIST,ASSIGN,PLUS,MINUS,DIV,LITERAL_NEW"/>
+      <property name="ignoreHashCodeMethod" value="true"/>
+      <property name="ignoreFieldDeclaration" value="true"/>
     </module>
     <module name="JavadocType">
       <property name="scope" value="public"/>
     </module>
+    <module name="UnusedImports"/>
+    <module name="RedundantImport"/>
   </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
